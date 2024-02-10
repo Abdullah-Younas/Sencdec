@@ -1,13 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {db} from './config/firebase'
+import {getDocs,collection, addDoc} from 'firebase/firestore'
 
 function App() {
   const [tte, settte] = useState("");
   const [ttd, setttd] = useState("");
   const [enctext, setenctext] = useState("");
   const [dectext, setdectext] = useState("");
+  const [UIKeys, setUIKeys] = useState([]);
+  const UIKeysCollectionRef = collection(db,"UIKeys");
+  const [Newenctext, setnewenctext] = useState("");
+  const [Newdectext, setnewdectext] = useState("");
+  const [NewIKey, setnewIKey] = useState("");
   
   const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
   
+  useEffect(() => {
+      const getUIKeys = async () => {
+        //Read data
+        //Set data
+        try{
+        const data = await getDocs(UIKeysCollectionRef);
+        const filtereddata = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
+        console.log(filtereddata);
+        setUIKeys(filtereddata);
+        } catch(err){
+          console.error(err);
+        }
+      }
+
+      getUIKeys();
+  },[])
+
+
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -21,6 +46,7 @@ function App() {
 
     // Shuffle keys array
     shuffleArray(shuffledKeys);
+    const ranIKey = Math.floor(Math.random() * 999999);
 
     // Encryption
     let encryptedText = "";
@@ -40,8 +66,17 @@ function App() {
     console.log("Cipher Text: ", encryptedText);
 
     setenctext(encryptedText);
+    setnewenctext(encryptedText);
     settte("");
     setShuffledKeys([...shuffledKeys]); // Store the shuffled keys for decryption
+    const onSubmitEncKeys = async () => {
+      try {
+        await addDoc(UIKeysCollectionRef,{Ikeys: ranIKey, Ukeys: Newenctext})
+      } catch(err){
+        console.error(err);
+      }
+    }
+    onSubmitEncKeys();
   };
 
   const handleSubmitdec = (e) => {
@@ -68,6 +103,7 @@ function App() {
     setttd("");
   };
 
+
   return (
     <>
       <h1>SENCDEC</h1><br />
@@ -76,7 +112,7 @@ function App() {
         <form onSubmit={handleSubmitenc} className='texttoencform'>
           <div className='form-row'>
             <label htmlFor="tte">Text to Encrypt:</label><br />
-            <input value={tte} onChange={(e) => settte(e.target.value)} type="text" id="tte" />
+            <input value={tte} onChange={(e) => { settte(e.target.value); setnewenctext(e.target.value);}} type="text" id="tte" />
           </div><br />
           <button className='subbtn'>Submit</button>
         </form>
@@ -95,6 +131,15 @@ function App() {
         <h3>Decrypted Text: </h3>
         <h4>{dectext}</h4>
       </div>
+
+      <h4>
+        {UIKeys.map((UIKey) => (
+          <div>
+            <h4>{UIKey.Ikeys}</h4>
+            <h4>{UIKey.Ukeys}</h4>
+          </div>
+        ))}
+      </h4>
     </>
   );
 }

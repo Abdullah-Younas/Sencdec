@@ -47,6 +47,7 @@ input{
   color: whitesmoke;
   font-weight: bold;
   transition: all 0.5s;
+  min-width: 20%;
 }
 .subbtn:hover{
   background-color: rgb(255, 0, 0);
