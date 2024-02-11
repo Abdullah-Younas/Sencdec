@@ -9,9 +9,8 @@ function App() {
   const [dectext, setdectext] = useState("");
   const [UIKeys, setUIKeys] = useState([]);
   const UIKeysCollectionRef = collection(db,"UIKeys");
-  const [Newenctext, setnewenctext] = useState("");
-  const [Newdectext, setnewdectext] = useState("");
-  const [NewIKey, setnewIKey] = useState("");
+  const [shuffledUkey, setSuffledUkey] = useState("");
+  const [ranIkeydb, setranIkey] = useState("");
   
   const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
   
@@ -43,17 +42,17 @@ function App() {
   const [shuffledKeys, setShuffledKeys] = useState([...chars]); // Initialize with the original keys
   const handleSubmitenc = (e) => {
     e.preventDefault();
-
+  
     // Shuffle keys array
     shuffleArray(shuffledKeys);
-    const ranIKey = Math.floor(Math.random() * 999999);
-
+    const ranIKey = Math.floor(100000 + Math.random() * 900000);
+  
     // Encryption
     let encryptedText = "";
     for (let i = 0; i < tte.length; i++) {
       const char = tte[i];
       const charIndex = chars.indexOf(char);
-
+  
       if (charIndex !== -1) {
         encryptedText += shuffledKeys[charIndex];
       } else {
@@ -61,24 +60,29 @@ function App() {
         encryptedText += char;
       }
     }
-
+  
+    encryptedText += ranIKey;
+    setranIkey(ranIKey);
+  
     console.log("Original Text: ", tte);
     console.log("Cipher Text: ", encryptedText);
-
+  
     setenctext(encryptedText);
-    setnewenctext(encryptedText);
+    setSuffledUkey(shuffledKeys);
     settte("");
     setShuffledKeys([...shuffledKeys]); // Store the shuffled keys for decryption
+  
     const onSubmitEncKeys = async () => {
       try {
-        await addDoc(UIKeysCollectionRef,{Ikeys: ranIKey, Ukeys: Newenctext})
-      } catch(err){
+        await addDoc(UIKeysCollectionRef, { Ikeys: ranIKey, Ukeys: shuffledKeys }); // Use ranIKey instead of ranIkeydb
+      } catch (err) {
         console.error(err);
       }
-    }
+    };
+  
     onSubmitEncKeys();
   };
-
+  
   const handleSubmitdec = (e) => {
     e.preventDefault();
 
@@ -112,7 +116,7 @@ function App() {
         <form onSubmit={handleSubmitenc} className='texttoencform'>
           <div className='form-row'>
             <label htmlFor="tte">Text to Encrypt:</label><br />
-            <input value={tte} onChange={(e) => { settte(e.target.value); setnewenctext(e.target.value);}} type="text" id="tte" />
+            <input value={tte} onChange={(e) => { settte(e.target.value);}} type="text" id="tte" />
           </div><br />
           <button className='subbtn'>Submit</button>
         </form>
@@ -131,15 +135,6 @@ function App() {
         <h3>Decrypted Text: </h3>
         <h4>{dectext}</h4>
       </div>
-
-      <h4>
-        {UIKeys.map((UIKey) => (
-          <div>
-            <h4>{UIKey.Ikeys}</h4>
-            <h4>{UIKey.Ukeys}</h4>
-          </div>
-        ))}
-      </h4>
     </>
   );
 }
