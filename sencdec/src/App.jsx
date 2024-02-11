@@ -11,6 +11,8 @@ function App() {
   const UIKeysCollectionRef = collection(db,"UIKeys");
   const [shuffledUkey, setSuffledUkey] = useState("");
   const [ranIkeydb, setranIkey] = useState("");
+  const [tempranIkeysliced,settempranIkeysliced] = useState("");
+  const [fdata,setfdata] = useState([]);
   
   const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
   
@@ -22,7 +24,7 @@ function App() {
         const data = await getDocs(UIKeysCollectionRef);
         const filtereddata = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
         console.log(filtereddata);
-        setUIKeys(filtereddata);
+        setfdata(filtereddata);
         } catch(err){
           console.error(err);
         }
@@ -83,29 +85,11 @@ function App() {
     onSubmitEncKeys();
   };
   
-  const handleSubmitdec = (e) => {
+  const handleSubmitdec = async (e) => {
     e.preventDefault();
-
-    // Decryption
-    let decryptedText = "";
-    for (let i = 0; i < ttd.length; i++) {
-      const char = ttd[i];
-      const keyIndex = shuffledKeys.indexOf(char);
-
-      if (keyIndex !== -1) {
-        decryptedText += chars[keyIndex];
-      } else {
-        // Handle spaces or characters not in keys array
-        decryptedText += char;
-      }
-    }
-
-    console.log("Cipher Text: ", ttd);
-    console.log("Decrypted Text: ", decryptedText);
-
-    setdectext(decryptedText);
-    setttd("");
+    console.log("hahaha");
   };
+  
 
 
   return (
