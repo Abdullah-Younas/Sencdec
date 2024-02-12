@@ -23,7 +23,6 @@ function App() {
         try{
         const data = await getDocs(UIKeysCollectionRef);
         const filtereddata = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
-        console.log(filtereddata);
         setfdata(filtereddata);
         } catch(err){
           console.error(err);
@@ -31,7 +30,7 @@ function App() {
       }
 
       getUIKeys();
-  },[])
+  },[]);
 
 
   const shuffleArray = (array) => {
@@ -87,8 +86,62 @@ function App() {
   
   const handleSubmitdec = async (e) => {
     e.preventDefault();
-    console.log("hahaha");
+    let TempIkey = Number(ttd.slice(-6)); // Convert TempIkey to a number
+    let TempEncText = ttd.slice(0,-6);
+    console.log("Entering the magical world of keys... 🗝️✨");
+    setttd("");
+    let DecryptedText = "";
+
+    try {
+      const data = await getDocs(UIKeysCollectionRef);
+      const filtereddata = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setfdata(filtereddata);
+  
+      // Assuming TempAllIkey is defined outside this block
+      let TempAllIkey = filtereddata.map(item => item.Ikeys);
+  
+      console.log("Behold, the keys of power: ", TempAllIkey);
+  
+      const matchingItem = filtereddata.find(item => item.Ikeys === TempIkey);
+  
+      if (matchingItem && matchingItem.Ukeys !== undefined) {
+        const UkeyValue = matchingItem.Ukeys;
+        console.log("Hooray! The matching Ukey value is: ", UkeyValue);
+        for(let i = 0; i < TempEncText.length; i++){
+          const char = TempEncText[i];
+          console.log(char);
+          const keyIndex = shuffledKeys.indexOf(char);
+          console.log(keyIndex);
+          if(keyIndex !== -1){
+            DecryptedText += chars[keyIndex];
+            console.log(DecryptedText);
+          }else{
+            DecryptedText += char;
+          }
+        }
+        console.log("Decrypted Text is So Magical: ", DecryptedText);
+      } else {
+        console.log("Alas! The Ukey value remains hidden, as the magic persists. 🔮🕰️");
+      }
+    } catch (err) {
+      console.error("Oh no! An error occurred in the magical realm. 🧙‍♂️💫", err);
+    }
+    TempEncText = "";
+    DecryptedText = "";
+    console.log(DecryptedText);
   };
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 
 
