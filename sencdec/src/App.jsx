@@ -110,7 +110,7 @@ function App() {
         for(let i = 0; i < TempEncText.length; i++){
           const char = TempEncText[i];
           console.log(char);
-          const keyIndex = shuffledKeys.indexOf(char);
+          const keyIndex = UkeyValue.indexOf(char);
           console.log(keyIndex);
           if(keyIndex !== -1){
             DecryptedText += chars[keyIndex];
@@ -126,8 +126,9 @@ function App() {
     } catch (err) {
       console.error("Oh no! An error occurred in the magical realm. 🧙‍♂️💫", err);
     }
-    TempEncText = "";
-    DecryptedText = "";
+    //TempEncText = "";
+    //DecryptedText = "";
+    setdectext(DecryptedText);
     console.log(DecryptedText);
   };
   
