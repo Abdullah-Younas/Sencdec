@@ -7,11 +7,11 @@ function App() {
   const [ttd, setttd] = useState("");
   const [enctext, setenctext] = useState("");
   const [dectext, setdectext] = useState("");
-  const [UIKeys, setUIKeys] = useState([]);
+  //const [UIKeys, setUIKeys] = useState([]);
   const UIKeysCollectionRef = collection(db,"UIKeys");
   const [shuffledUkey, setSuffledUkey] = useState("");
   const [ranIkeydb, setranIkey] = useState("");
-  const [tempranIkeysliced,settempranIkeysliced] = useState("");
+  //const [tempranIkeysliced,settempranIkeysliced] = useState("");
   const [fdata,setfdata] = useState([]);
   
   const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
@@ -65,8 +65,8 @@ function App() {
     encryptedText += ranIKey;
     setranIkey(ranIKey);
   
-    console.log("Original Text: ", tte);
-    console.log("Cipher Text: ", encryptedText);
+    //console.log("Original Text: ", tte);
+    //console.log("Cipher Text: ", encryptedText);
   
     setenctext(encryptedText);
     setSuffledUkey(shuffledKeys);
@@ -88,7 +88,7 @@ function App() {
     e.preventDefault();
     let TempIkey = Number(ttd.slice(-6)); // Convert TempIkey to a number
     let TempEncText = ttd.slice(0,-6);
-    console.log("Entering the magical world of keys... 🗝️✨");
+    //console.log("Entering the magical world of keys... 🗝️✨");
     setttd("");
     let DecryptedText = "";
 
@@ -100,36 +100,36 @@ function App() {
       // Assuming TempAllIkey is defined outside this block
       let TempAllIkey = filtereddata.map(item => item.Ikeys);
   
-      console.log("Behold, the keys of power: ", TempAllIkey);
+      //console.log("Behold, the keys of power: ", TempAllIkey);
   
       const matchingItem = filtereddata.find(item => item.Ikeys === TempIkey);
   
       if (matchingItem && matchingItem.Ukeys !== undefined) {
         const UkeyValue = matchingItem.Ukeys;
-        console.log("Hooray! The matching Ukey value is: ", UkeyValue);
+        //console.log("Hooray! The matching Ukey value is: ", UkeyValue);
         for(let i = 0; i < TempEncText.length; i++){
           const char = TempEncText[i];
-          console.log(char);
+          //console.log(char);
           const keyIndex = UkeyValue.indexOf(char);
-          console.log(keyIndex);
+          //console.log(keyIndex);
           if(keyIndex !== -1){
             DecryptedText += chars[keyIndex];
-            console.log(DecryptedText);
+            //console.log(DecryptedText);
           }else{
             DecryptedText += char;
           }
         }
-        console.log("Decrypted Text is So Magical: ", DecryptedText);
+        //console.log("Decrypted Text is So Magical: ", DecryptedText);
       } else {
-        console.log("Alas! The Ukey value remains hidden, as the magic persists. 🔮🕰️");
+        console.log("Error Ukey hidden");
       }
     } catch (err) {
-      console.error("Oh no! An error occurred in the magical realm. 🧙‍♂️💫", err);
+      console.error(err);
     }
     //TempEncText = "";
     //DecryptedText = "";
     setdectext(DecryptedText);
-    console.log(DecryptedText);
+    //console.log(DecryptedText);
   };
   
   
