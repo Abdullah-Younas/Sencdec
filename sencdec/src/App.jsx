@@ -13,6 +13,7 @@ function App() {
   const [ranIkeydb, setranIkey] = useState("");
   //const [tempranIkeysliced,settempranIkeysliced] = useState("");
   const [fdata,setfdata] = useState([]);
+  const [ctime,setctime] = useState(0);
   
   const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
   
@@ -47,7 +48,7 @@ function App() {
     // Shuffle keys array
     shuffleArray(shuffledKeys);
     const ranIKey = Math.floor(100000 + Math.random() * 900000);
-  
+
     // Encryption
     let encryptedText = "";
     for (let i = 0; i < tte.length; i++) {
@@ -90,6 +91,10 @@ function App() {
     let TempEncText = ttd.slice(0,-6);
     //console.log("Entering the magical world of keys... 🗝️✨");
     setttd("");
+    /*timer = setInterval(() => {
+      setctime(sec);
+      sec ++;
+    }, 1000);*/
     let DecryptedText = "";
 
     try {
@@ -131,20 +136,6 @@ function App() {
     setdectext(DecryptedText);
     //console.log(DecryptedText);
   };
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
 
   return (
     <>
@@ -158,9 +149,9 @@ function App() {
           </div><br />
           <button className='subbtn'>Submit</button>
         </form>
-        <h3>Encrypted Text: </h3>
-        <h4>{enctext}</h4><br />
-      </div>
+        <h2>Encrypted Text: </h2>
+        <h4>{enctext}</h4>
+      </div><br />
       <div className='decryptionbox'>
         <h2>Decryption:</h2>
         <form onSubmit={handleSubmitdec} className='texttodecform'>
@@ -170,11 +161,13 @@ function App() {
           </div><br />
           <button className='subbtn'>Submit</button>
         </form>
-        <h3>Decrypted Text: </h3>
+        <h2>Decrypted Text: </h2>
         <h4>{dectext}</h4>
-      </div>
+      </div><br />
     </>
+
   );
 }
 
 export default App;
+ 
