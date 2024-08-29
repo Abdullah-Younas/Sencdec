@@ -87,83 +87,86 @@ function App() {
   
   const handleSubmitdec = async (e) => {
     e.preventDefault();
-    let TempIkey = Number(ttd.slice(-6)); // Convert TempIkey to a number
-    let TempEncText = ttd.slice(0,-6);
-    //console.log("Entering the magical world of keys... 🗝️✨");
-    setttd("");
-    /*timer = setInterval(() => {
-      setctime(sec);
-      sec ++;
-    }, 1000);*/
+    
+    let TempIkey = Number(ttd.slice(-6)); // Extract the last 6 characters as the key
+    let TempEncText = ttd.slice(0, -6);   // The rest is the encrypted text
+  
+    setttd("");  // Clear the input after submission
+  
     let DecryptedText = "";
-
+  
     try {
       const data = await getDocs(UIKeysCollectionRef);
       const filtereddata = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setfdata(filtereddata);
   
-      // Assuming TempAllIkey is defined outside this block
-      let TempAllIkey = filtereddata.map(item => item.Ikeys);
-  
-      //console.log("Behold, the keys of power: ", TempAllIkey);
-  
       const matchingItem = filtereddata.find(item => item.Ikeys === TempIkey);
   
       if (matchingItem && matchingItem.Ukeys !== undefined) {
         const UkeyValue = matchingItem.Ukeys;
-        //console.log("Hooray! The matching Ukey value is: ", UkeyValue);
-        for(let i = 0; i < TempEncText.length; i++){
+        
+        for(let i = 0; i < TempEncText.length; i++) {
           const char = TempEncText[i];
-          //console.log(char);
           const keyIndex = UkeyValue.indexOf(char);
-          //console.log(keyIndex);
-          if(keyIndex !== -1){
+          
+          if(keyIndex !== -1) {
             DecryptedText += chars[keyIndex];
-            //console.log(DecryptedText);
-          }else{
+          } else {
             DecryptedText += char;
           }
         }
-        //console.log("Decrypted Text is So Magical: ", DecryptedText);
       } else {
-        console.log("Error Ukey hidden");
+        console.log("Matching Ukey not found.");
       }
     } catch (err) {
       console.error(err);
     }
-    //TempEncText = "";
-    //DecryptedText = "";
-    setdectext(DecryptedText);
-    //console.log(DecryptedText);
+  
+    setdectext(DecryptedText);  // Update the state with the decrypted text
   };
+  
 
   return (
     <>
-      <h1>SENCDEC</h1><br />
+      <h1>SENCDEC</h1>
+      <div className='overallbox'>
       <div className='encryptionbox'>
-        <h2>Encryption:</h2>
+        <h2 className='encryptiontitle'>Encryption:</h2>
         <form onSubmit={handleSubmitenc} className='texttoencform'>
           <div className='form-row'>
-            <label htmlFor="tte">Text to Encrypt:</label><br />
-            <input value={tte} onChange={(e) => { settte(e.target.value);}} type="text" id="tte" />
-          </div><br />
+            <textarea 
+              value={tte} 
+              onChange={(e) => { settte(e.target.value);}} 
+              id="tte" 
+              rows="5"
+              className="text-area"
+              maxLength="50"
+            />
+          </div>
           <button className='subbtn'>Submit</button>
         </form>
-        <h2>Encrypted Text: </h2>
-        <h4>{enctext}</h4>
-      </div><br />
+        <h2 className='encryptedtitle'>Encrypted Text: </h2>
+        <h4 className='encryptedtext'>{enctext}</h4>
+      </div>
       <div className='decryptionbox'>
-        <h2>Decryption:</h2>
+        <h2 className='decryptiontitle'>Decryption:</h2>
         <form onSubmit={handleSubmitdec} className='texttodecform'>
           <div className='form-row'>
-            <label htmlFor='ttd'>Text to Decrypt:</label><br />
-            <input value={ttd} onChange={(e) => setttd(e.target.value)} type='text' id='ttd'/>
-          </div><br />
+            <textarea 
+              value={ttd} 
+              onChange={(e) => setttd(e.target.value)} 
+              id='ttd'
+              rows="5"
+              className="text-area"
+              maxLength="100"
+            />
+          </div>
           <button className='subbtn'>Submit</button>
         </form>
-        <h2>Decrypted Text: </h2>
-        <h4>{dectext}</h4>
-      </div><br />
+        <h2 className='decryptedtitle'>Decrypted Text: </h2>
+        <h4 className='decryptedtext'>{dectext}</h4>
+      </div>
+      </div>
     </>
 
   );

@@ -1,14 +1,100 @@
 :root {
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
-  background-color: #242424;
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  background-color: #1f1f1f;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='72' viewBox='0 0 36 72'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ff0000' fill-opacity='0.16'%3E%3Cpath d='M2 6h12L8 18 2 6zm18 36h12l-6 12-6-12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   color: whitesmoke;
   margin: 10px;
 }
+body{
+  overflow: hidden;
+}
 h1{
-  color: rgb(255, 0, 0);
-  text-shadow: 2px 2px 5px rgb(0, 0, 0);
-  font-size: 2.5em;
-  text-decoration: underline;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(27, 27, 27);
+  text-shadow: -1px 1px 0 #8f1c1c,
+                         1px 1px 0 #8f1c1c,
+                         1px -1px 0 #8f1c1c,
+                         -1px -1px 0 #8f1c1c;
+  font-size: 3em;
+}
+.encryptionbox{
+  transform: translateY(-30px);
+  border-radius: 10px;
+  width: 700px;
+  height: 330px;
+  background-color: #8381811c;
+  display: grid;
+  grid-template-rows: 50px 25px 25px 25px 50px 50px 25px 25px 25px;
+  border: 3px solid rgba(216, 197, 197, 0.185);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-align: left;
+  margin: 10px;
+  max-height: 330px;
+  overflow-y: auto;
+}
+.encryptiontitle{
+  margin-left: 10px;
+  transform: translateY(-20px);
+  grid-row: 1;
+}
+.decryptiontitle{
+  margin-left: 10px;
+  transform: translateY(-20px);
+  grid-row: 1;
+}
+.encryptedtitle{
+  margin-left: 10px;
+  transform: translateY(-7px);
+  grid-row: 6;
+}
+.decryptedtitle{
+  margin-left: 10px;
+  transform: translateY(-7px);
+  grid-row: 6;
+}
+.encryptedtext{
+  margin-left: 10px;
+
+  transform: translateY(-30px);
+  grid-row: 7;
+}
+.decryptedtext{
+  margin-left: 10px;
+
+  transform: translateY(-30px);
+  grid-row: 7;
+}
+.texttoencform{
+  transform: translateY(-40px);
+  grid-row: 3;
+}
+.texttodecform{
+  transform: translateY(-40px);
+  grid-row: 3;
+}
+.overallbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+}
+.decryptionbox{
+  transform: translateY(-30px);
+  border-radius: 10px;
+  width: 700px;
+  height: 330px;
+  background-color: #8381811c;
+  display: grid;
+  grid-template-rows: 50px 25px 25px 25px 50px 50px 25px 25px 25px;
+  border: 3px solid rgba(216, 197, 197, 0.185);
 }
 h2{
   color: rgb(253, 88, 124);
@@ -23,15 +109,14 @@ h3{
 h4{
   color: rgb(252, 162, 162);
   text-shadow: 5px 5px 5px rgb(0, 0, 0);
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 input{
   margin-top: 2px;
   margin-bottom: 2px;
   padding: 3px 3px;
-  width: auto;
-  min-width: 300px;
-  max-width: 700px;
+  width: 400px;
+  height: 600px;
   border-radius: 6px;
   border: none;
   background-color: rgb(255, 175, 175);
@@ -49,9 +134,28 @@ input{
   color: whitesmoke;
   font-weight: bold;
   transition: all 0.5s;
-  min-width: 15%;
+  margin-left: 10px;
+  width: 200px;
 }
 .subbtn:hover{
   background-color: rgb(255, 0, 0);
   padding: 7px;
+}
+.text-area {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 10px;
+  padding: 3px 3px;
+  width: 650px;
+  height: 100px;
+  border-radius: 6px;
+  border: none;
+  background-color: rgb(255, 175, 175);
+  border: 2px solid whitesmoke;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  resize: vertical; /* Allows vertical resizing */
+  overflow-y: auto; /* Adds a vertical scrollbar if needed */
+  font-family: inherit;
+  font-size: inherit;
 }
