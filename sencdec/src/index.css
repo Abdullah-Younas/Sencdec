@@ -159,3 +159,51 @@ input{
   font-family: inherit;
   font-size: inherit;
 }
+
+.AllBox{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+}
+
+.otherFormatbox {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping */
+  justify-content: space-around; /* Distribute space between buttons */
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.FormatScrollBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+}
+
+.FormatScrollBox button {
+  flex: 0 1 30%; /* 3 buttons per row */
+  padding: 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: none;
+}
+
+.FormatScrollBox button:hover {
+  background-color: #408d44;
+}
+
+h2 {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
