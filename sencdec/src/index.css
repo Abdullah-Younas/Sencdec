@@ -9,13 +9,25 @@
   margin: 10px;
 }
 body{
-  overflow: hidden;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+a{
+  color: #408d44;
+}
+button{
+  padding: 3px 6px;
+  background-color: #408d44;
+  border: none;
+}
+button:hover{
+  background-color: #4CAF50;
 }
 h1{
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(27, 27, 27);
+  color: rgb(255, 255, 255);
   text-shadow: -1px 1px 0 #8f1c1c,
                          1px 1px 0 #8f1c1c,
                          1px -1px 0 #8f1c1c,
@@ -166,6 +178,7 @@ input{
   display: flex;
   justify-content:space-around;
   align-items: center;
+  flex-direction: row;
 }
 
 .otherFormatbox {
@@ -206,4 +219,12 @@ h2 {
   text-align: center;
   width: 100%;
   margin-bottom: 20px;
+}
+@media screen and (max-width: 900px) {
+  .AllBox{
+      flex-direction: column;
+  }
+  body{
+    overflow:scroll;
+  }
 }

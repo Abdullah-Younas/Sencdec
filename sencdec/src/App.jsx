@@ -6,6 +6,7 @@ import Images from './Images.jsx';
 import Videos from './Videos.jsx';
 import Audios from './Audios.jsx';
 import Documents from './Documents.jsx';
+import Landing from './Landing.jsx';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
 
   useEffect(() => {
     const enforceMinWidth = () => {
-      const minWidth = 1000; // Set your minimum width
+      const minWidth = 700; // Set your minimum width
       setIsBelowMinWidth(window.innerWidth < minWidth);
     };
 
@@ -39,7 +40,8 @@ function App() {
         </div>
       ) : (
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Landing />}/>
+          <Route path='/success-home' element={<Home />} />
           <Route path='/success-TextFiles' element={<TextFiles />} />
           <Route path='/success-Images' element={<Images />} />
           <Route path='/success-Videos' element={<Videos />} />
