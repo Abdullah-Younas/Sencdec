@@ -17,6 +17,9 @@ function Landing() {
               {/* Header */}
               <header className="text-center py-12 px-4 bg-gradient-to-r from-blue-900 via-gray-900 to-black">
                 <h1 className="text-5xl font-extrabold text-blue-400 drop-shadow-lg">Sencdec</h1>
+                <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl text-lg transition-all duration-200" onClick={Home}>
+                  Launch the App
+                </button>
                 <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
                   A multi-format encryption and decryption software powered by <strong>Firebase</strong> and secure <strong>client-side cryptography</strong>.
                 </p>
